@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="text-center">
+      <!-- button trigger modal -->
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#create_item">
+        New item
+      </button>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="row">
+    <div class="all_items">
+      <%= render @items %>
+    </div>
+  </div>
+  <!-- modal for create action -->
+  <%= form_for(@item, html: { multipart: true }, remote: true) do |f| %>
+    <div class="modal fade" id="create_item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">New item</h4>
+          </div>
+          <div class="modal-body">
+            <div class="field">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control item_name" %>
+            </div>
+            <div class="field">
+              <%= f.label :description %>
+              <%= f.text_area :description, rows: 3, class: "form-control item_description" %>
+            </div>
+            <div class="field">
+              <%= f.label :file, "File URL" %>
+              <%= image_tag(@item.file_url) if @item.file? %>
+              <%= f.text_field :remote_file_url, class: "form-control" %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit "Create", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
