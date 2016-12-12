@@ -1,3 +1,4 @@
+<!-- for adding new item and updating -->
 <div class="col-md-4 text-center" id="item_<%= item.id %>">
   <div class="panel panel-success">
     <div class="panel-heading">
@@ -16,12 +17,12 @@
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#update_item_<%= item.id %>">
         Edit
         </button>
-        <%= link_to "Delete", item, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <%= link_to "Delete", item, method: :delete, data: { confirm: "Are you sure?" }, remote: true, class: "btn btn-danger" %>
       </div>
     </div>
   </div>
   <!-- modal for update action -->
-  <%= form_for(item, html: { multipart: true }, remote: true) do |f| %>
+  <%= form_for(item, method: :put, html: { multipart: true }, remote: true) do |f| %>
     <div class="modal fade" id="update_item_<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -39,8 +40,9 @@
               <%= f.text_area :description, rows: 3, class: "form-control" %>
             </div>
             <div class="field">
-              <%= f.label :file, "File URL" %>
-              <%= image_tag(@item.file_url) if @item.file? %>
+              <p><label>Current file<label></p>
+              <p><%= image_tag(item.file) if item.file?%></p>
+              <%= f.label :remote_file_url, "File URL" %>
               <%= f.text_field :remote_file_url, class: "form-control" %>
             </div>
           </div>

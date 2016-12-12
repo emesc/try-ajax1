@@ -9,10 +9,8 @@
   </div>
   <br>
   <hr>
-  <div class="row">
-    <div class="all_items">
-      <%= render @items %>
-    </div>
+  <div class="row" id="all_items">
+    <%= render @items %>
   </div>
   <!-- modal for create action -->
   <%= form_for(@item, html: { multipart: true }, remote: true) do |f| %>
@@ -35,7 +33,7 @@
             <div class="field">
               <%= f.label :file, "File URL" %>
               <%= image_tag(@item.file_url) if @item.file? %>
-              <%= f.text_field :remote_file_url, class: "form-control" %>
+              <%= f.text_field :remote_file_url, class: "form-control item_url" %>
             </div>
           </div>
           <div class="modal-footer">

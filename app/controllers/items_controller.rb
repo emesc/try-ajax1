@@ -42,6 +42,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    @item.remote_file_url ||= @item.remote_file_url
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
@@ -73,6 +74,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :remote_file_url)
+      params.require(:item).permit(:name, :description, :remote_file_url)
     end
 end

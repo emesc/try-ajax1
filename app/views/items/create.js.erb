@@ -1,0 +1,7 @@
+$('#create_item').modal('hide');
+$('.item_name').val('');
+$('.item_description').val('');
+$('.item_url').val('');
+
+$('#all_items').prepend('<%= j render @item %>');
+$('#item_<%= @item.id %>').hide().fadeIn(500);
