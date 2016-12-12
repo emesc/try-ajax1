@@ -1,0 +1,55 @@
+<div class="col-md-4 text-center" id="item_<%= item.id %>">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= item.name %></h3>
+      <p><%= item.description.capitalize %></p>
+      <hr>
+      <h6 class="time_stamp"><%= time_ago_in_words(item.created_at) %></h6>
+    </div>
+    <div class="panel-body">
+      <div>
+        <%= image_tag item.file_url(:thumb) if item.file? %>
+      </div>
+      <br>
+      <div class="btn-group" role="group" aria-label="...">
+        <!-- button trigger modal -->
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#update_item_<%= item.id %>">
+        Edit
+        </button>
+        <%= link_to "Delete", item, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+  <!-- modal for update action -->
+  <%= form_for(item, html: { multipart: true }, remote: true) do |f| %>
+    <div class="modal fade" id="update_item_<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit item</h4>
+          </div>
+          <div class="modal-body">
+            <div class="field">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :description %>
+              <%= f.text_area :description, rows: 3, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :file, "File URL" %>
+              <%= image_tag(@item.file_url) if @item.file? %>
+              <%= f.text_field :remote_file_url, class: "form-control" %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit "Update", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
