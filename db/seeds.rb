@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+10.times do
+  name = Faker::Company.name
+  description = Faker::Company.bs
+  remote_file_url = Faker::Company.logo
+  Item.create(name: name, description: description, remote_file_url: remote_file_url)
+end
